@@ -11,6 +11,7 @@ usage() {
   echo "  storeMemory <key> <value>  - Store a key-value pair"
   echo "  getMemory <key>            - Retrieve a value by key"
   echo "  deleteMemory <key>         - Delete a key-value pair"
+  echo "  listMemories               - List all stored memory keys"
   exit 1
 }
 
@@ -57,6 +58,18 @@ delete_memory() {
   echo "Deleted memory for key: ${key}"
 }
 
+list_memories() {
+  local found=0
+  for file in "${MEMORY_DIR}"/*; do
+    [[ -f "$file" ]] || continue
+    echo "$(basename "$file")"
+    found=1
+  done
+  if [[ "$found" -eq 0 ]]; then
+    echo "No memories stored."
+  fi
+}
+
 if [[ $# -lt 1 ]]; then
   usage
 fi
@@ -76,6 +89,9 @@ case "$command" in
   deleteMemory)
     [[ $# -lt 1 ]] && { echo "Error: deleteMemory requires <key>" >&2; exit 1; }
     delete_memory "$1"
+    ;;
+  listMemories)
+    list_memories
     ;;
   *)
     echo "Error: unknown command '${command}'" >&2

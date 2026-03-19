@@ -9,6 +9,7 @@ A simple Copilot skill that provides persistent key-value storage on local disk.
 | **storeMemory** | `memory.sh storeMemory <key> <value>` | Save a value under a key |
 | **getMemory** | `memory.sh getMemory <key>` | Retrieve a stored value |
 | **deleteMemory** | `memory.sh deleteMemory <key>` | Remove a stored memory |
+| **listMemories** | `memory.sh listMemories` | List all stored memory keys |
 
 ## Key Rules
 
@@ -29,6 +30,10 @@ bash memory.sh storeMemory favorite-color blue
 # Retrieve it
 bash memory.sh getMemory favorite-color
 # → blue
+
+# List all memories
+bash memory.sh listMemories
+# → favorite-color
 
 # Delete it
 bash memory.sh deleteMemory favorite-color
